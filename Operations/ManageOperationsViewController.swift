@@ -10,7 +10,9 @@ import UIKit
 
 class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
     
-    var operationSigns = ["*", "+", "-"]
+    var operationSigns = ["*", "+", "-", "/"]
+    
+    var selectedOperationSign = ""
 
     @IBOutlet weak var secondNumber: UITextField!
     @IBOutlet weak var firstNumber: UITextField!
@@ -18,6 +20,7 @@ class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UI
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        selectedOperationSign = operationSigns[0]
 
         // Do any additional setup after loading the view.
     }
@@ -32,6 +35,14 @@ class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UI
 
     @IBAction func onDone(_ sender: Any) {
         // save data and go back
+        
+        let expression = firstNumber.text! + selectedOperationSign + secondNumber.text!;
+        print("expression: \(expression)")
+        let exp: NSExpression = NSExpression(format: expression)
+        let result: Double = (exp.expressionValue(with: nil, context: nil) as! Double).rounded()
+        let resultStr = String(format: "%.0f", result)
+        let fullExpression = expression + "=" + resultStr
+        print("result: \(fullExpression)")
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -45,6 +56,10 @@ class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UI
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        selectedOperationSign = operationSigns[row]
     }
     
     
