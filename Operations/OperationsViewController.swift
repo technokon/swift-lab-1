@@ -10,7 +10,7 @@ import UIKit
 
 class OperationsViewController: UITableViewController {
     
-    var operations = [
+    var operations:[String] = [
         "5 * 5 = 25",
         "3 + 7 = 10"
     ];
@@ -86,14 +86,20 @@ class OperationsViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
+        // Get the new view controller using
+        let destination = segue.destination as! ManageOperationsViewController
+        destination.operations = operations
+        destination.onOperationChange = { ops in
+            self.operations = ops
+            self.tableView.reloadData()
+        }
         // Pass the selected object to the new view controller.
     }
-    */
+    
 
 }

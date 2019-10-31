@@ -8,11 +8,17 @@
 
 import UIKit
 
+
+
 class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+    
+    var operations = [String]()
     
     var operationSigns = ["*", "+", "-", "/"]
     
     var selectedOperationSign = ""
+    
+    var onOperationChange: (([String]) -> Void)?
 
     @IBOutlet weak var secondNumber: UITextField!
     @IBOutlet weak var firstNumber: UITextField!
@@ -43,6 +49,8 @@ class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UI
         let resultStr = String(format: "%.0f", result)
         let fullExpression = expression + "=" + resultStr
         print("result: \(fullExpression)")
+        operations.append(fullExpression)
+        onOperationChange?(operations)
         self.navigationController?.popViewController(animated: true)
     }
     
@@ -62,14 +70,16 @@ class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UI
         selectedOperationSign = operationSigns[row]
     }
     
-    
+    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
+        // Get the new view controller using
+        let dest:OperationsViewController = segue.destination as! OperationsViewController
+        dest.operations = operations
         // Pass the selected object to the new view controller.
     }
-    
+    */
 
 }
