@@ -34,6 +34,10 @@ class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UI
     func transferData(data: [String]) {
         operations = data
     }
+    
+    func transferSomeData(data: [String]) { // why not just use a function?
+        operations = data
+    }
 
     @IBOutlet weak var onDone: UIButton!
     
@@ -46,12 +50,12 @@ class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UI
     @IBAction func onDone(_ sender: Any) {
         // save data and go back
         
-        let expression = firstNumber.text! + selectedOperationSign + secondNumber.text!;
+        let expression = firstNumber.text! + " " + selectedOperationSign + " " + secondNumber.text!;
         print("expression: \(expression)")
         let exp: NSExpression = NSExpression(format: expression)
         let result: Double = (exp.expressionValue(with: nil, context: nil) as! Double).rounded()
         let resultStr = String(format: "%.0f", result)
-        let fullExpression = expression + "=" + resultStr
+        let fullExpression = expression + " = " + resultStr
         print("result: \(fullExpression)")
         operations.append(fullExpression)
         onOperationChange?(operations)
