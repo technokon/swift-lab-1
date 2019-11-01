@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol SendOperations {
+    func transferData(data: [String])
+}
+
 class OperationsViewController: UITableViewController {
+    
+    var delegate: SendOperations? = nil
     
     var operations:[String] = [
         "5 * 5 = 25",
@@ -93,7 +99,8 @@ class OperationsViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using
         let destination = segue.destination as! ManageOperationsViewController
-        destination.operations = operations
+        //destination.operations = operations
+        destination.transferData(data: operations)
         destination.onOperationChange = { ops in
             self.operations = ops
             self.tableView.reloadData()

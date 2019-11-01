@@ -10,7 +10,7 @@ import UIKit
 
 
 
-class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, SendOperations {
     
     var operations = [String]()
     
@@ -29,6 +29,10 @@ class ManageOperationsViewController: UIViewController, UIPickerViewDelegate, UI
         selectedOperationSign = operationSigns[0]
 
         // Do any additional setup after loading the view.
+    }
+    
+    func transferData(data: [String]) {
+        operations = data
     }
 
     @IBOutlet weak var onDone: UIButton!
